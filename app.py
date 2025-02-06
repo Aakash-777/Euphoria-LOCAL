@@ -9,7 +9,7 @@ app = Flask(__name__)
 load_dotenv()
 API_KEY = os.getenv('YOUTUBE')
 
-def search_youtube(query, max_results=50):
+def search_youtube(query, max_results=10):
     youtube = build('youtube', 'v3', developerKey=API_KEY)
     request = youtube.search().list(
         q=query,
@@ -18,7 +18,7 @@ def search_youtube(query, max_results=50):
         maxResults=max_results
     )
     response = request.execute()
-
+    
     results = []
     for item in response['items']:
         results.append({
